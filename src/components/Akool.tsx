@@ -38,7 +38,9 @@ function Akool() {
 
   const [openapiHost, setOpenapiHost] = useState('https://openapi.akool.com');
   const [avatarId, setAvatarId] = useState('UdzwXt51ZWRm92IIrhnGS');
-  const [avatarVideoUrl, setAvatarVideoUrl] = useState('https://drz0f01yeq1cx.cloudfront.net/1750241572718-4854-IMG2431.mov');
+//   const [avatarVideoUrl, setAvatarVideoUrl] = useState('https://drz0f01yeq1cx.cloudfront.net/1750241572718-4854-IMG2431.mov');
+  const [avatarVideoUrl, setAvatarVideoUrl] = useState('http://localhost:3000/darren.mp4');
+
 
   const [openapiToken, setOpenapiToken] = useState('');
   const [sessionDuration, setSessionDuration] = useState(2);

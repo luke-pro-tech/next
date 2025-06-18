@@ -38,7 +38,7 @@ export const useMessageState = ({
   const [sending, setSending] = useState(false);
   
   // Initialize Bedrock LLM hook
-  const { processWithLLM, isProcessing, error } = useBedrockLLM();
+  const { processWithLLM, isProcessing, error, clearChatHistory } = useBedrockLLM();
 
   // Set up stream message listener
   useEffect(() => {
@@ -105,7 +105,8 @@ export const useMessageState = ({
   const clearMessages = useCallback(() => {
     setMessages([]);
     setInputMessage('');
-  }, []);
+    clearChatHistory();
+  }, [clearChatHistory]);
 
   return {
     messages,
