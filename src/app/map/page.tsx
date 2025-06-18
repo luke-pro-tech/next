@@ -750,7 +750,7 @@ export default function MapPage() {
   }, [likedLocations, userLocation]);
 
   return (
-    <div className="mobile-fullscreen map-container relative">
+    <div className="mobile-fullscreen map-container relative pb-16">
       {/* Map */}
       {mapError ? (
         <div className="w-full h-full flex items-center justify-center bg-gray-100">
@@ -836,8 +836,9 @@ export default function MapPage() {
       {/* Draggable itinerary panel */}
       <div
         ref={panelRef}
-        className="absolute bottom-0 left-0 right-0 bg-white shadow-xl rounded-t-3xl border-t border-gray-200 overflow-hidden"
+        className="absolute left-0 right-0 bg-white shadow-xl rounded-t-3xl border-t border-gray-200 overflow-hidden"
         style={{ 
+          bottom: '64px', // Raised to account for navigation dock
           height: `${panelHeight}px`,
           transition: isDragging ? 'none' : 'height 0.3s ease-out'
         }}

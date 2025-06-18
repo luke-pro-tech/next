@@ -48,7 +48,7 @@ export default function SwipePage() {
   };
 
   return (
-    <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
+    <div className="h-screen bg-gray-50 flex flex-col overflow-hidden pb-16">
       <div className="px-4 py-3 max-w-md mx-auto w-full flex-1 flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between mb-3 bg-white rounded-lg p-3 shadow-sm">

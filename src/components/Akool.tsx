@@ -221,7 +221,7 @@ function Akool() {
       )}
       
       {/* Control buttons overlay - matching app's red theme */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-30">
         <div className="flex gap-3 p-3 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl">
           <button
             onClick={startStreaming}
@@ -266,7 +266,7 @@ function Akool() {
       
       {/* Connection status indicator */}
       {!isJoined && (
-        <div className="absolute bottom-44 left-1/2 transform -translate-x-1/2 text-center z-20">
+        <div className="absolute bottom-36 left-1/2 transform -translate-x-1/2 text-center z-20">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
             <p className="text-white/80 text-sm font-medium">Ready to connect with your AI assistant</p>
             <p className="text-white/60 text-xs mt-1">✨ Enhanced with Browser STT & AWS Bedrock LLM</p>
