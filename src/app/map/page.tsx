@@ -268,7 +268,8 @@ export default function MapPage() {
   const [startHeight, setStartHeight] = useState(0);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  const maxHeight = typeof window !== 'undefined' ? window.innerHeight * 0.8 : 600;
+  // Calculate max height based on available space (viewport height - ActiveAvatar height)
+  const maxHeight = typeof window !== 'undefined' ? (window.innerHeight - 240) * 0.8 : 400;
   const minHeight = 120;
 
   // Handle drag start
@@ -750,7 +751,7 @@ export default function MapPage() {
   }, [likedLocations, userLocation]);
 
   return (
-    <div className="mobile-fullscreen map-container relative">
+    <div className="h-full map-container relative">
       {/* Map */}
       {mapError ? (
         <div className="w-full h-full flex items-center justify-center bg-gray-100">

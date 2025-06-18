@@ -70,7 +70,7 @@ export default function SwipePage() {
         </div>
 
         {/* Instructions */}
-        <div className="text-center mb-3 bg-white rounded-lg p-3 shadow-sm">
+        {/* <div className="text-center mb-3 bg-white rounded-lg p-3 shadow-sm">
           <p className="text-gray-600 mb-2 text-xs">
             Swipe right to like, left to pass
           </p>
@@ -88,7 +88,7 @@ export default function SwipePage() {
               <span>Like</span>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Swipe Stack - Constrained to available space */}
         <main className="flex justify-center mb-3 flex-1 min-h-0 relative">
