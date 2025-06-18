@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { RTCClient } from '../agoraHelper';
-import { sendMessageToAvatar } from '../agoraHelper';
+import { sendMessageToAvatar, sendMessageToAvatarWithLLM } from '../agoraHelper';
+import { useBedrockLLM } from './useBedrockLLM';
 
 export interface Message {
   id: string;
@@ -12,6 +13,7 @@ interface UseMessageStateProps {
   client: RTCClient;
   connected: boolean;
   onStreamMessage?: (uid: number, body: Uint8Array) => void;
+  enableLLM?: boolean; // New option to enable/disable LLM processing
 }
 
 interface UseMessageStateReturn {
@@ -21,16 +23,22 @@ interface UseMessageStateReturn {
   sendMessage: () => Promise<void>;
   clearMessages: () => void;
   addReceivedMessage: (messageId: string, text: string) => void;
+  isProcessingLLM: boolean; // New state for LLM processing
+  llmError: string | null; // New state for LLM errors
 }
 
 export const useMessageState = ({
   client,
   connected,
   onStreamMessage,
+  enableLLM = true, // Default to true for LLM processing
 }: UseMessageStateProps): UseMessageStateReturn => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [sending, setSending] = useState(false);
+  
+  // Initialize Bedrock LLM hook
+  const { processWithLLM, isProcessing, error } = useBedrockLLM();
 
   // Set up stream message listener
   useEffect(() => {
@@ -43,7 +51,7 @@ export const useMessageState = ({
   }, [client, connected, onStreamMessage]);
 
   const sendMessage = useCallback(async () => {
-    if (!inputMessage.trim() || !connected || sending) return;
+    if (!inputMessage.trim() || !connected || sending || isProcessing) return;
 
     setSending(true);
     const messageId = Date.now().toString();
@@ -56,10 +64,17 @@ export const useMessageState = ({
     };
 
     setMessages((prev) => [...prev, newMessage]);
+    const currentMessage = inputMessage;
     setInputMessage('');
 
     try {
-      await sendMessageToAvatar(client, messageId, inputMessage);
+      if (enableLLM) {
+        // Use LLM processing before sending to avatar
+        await sendMessageToAvatarWithLLM(client, messageId, currentMessage, processWithLLM);
+      } else {
+        // Send directly to avatar without LLM processing
+        await sendMessageToAvatar(client, messageId, currentMessage);
+      }
     } catch (error) {
       console.error('Failed to send message:', error);
       // Optionally remove the message from state if sending failed
@@ -67,7 +82,7 @@ export const useMessageState = ({
     } finally {
       setSending(false);
     }
-  }, [client, connected, inputMessage, sending]);
+  }, [client, connected, inputMessage, sending, isProcessing, enableLLM, processWithLLM]);
 
   const addReceivedMessage = useCallback((messageId: string, text: string) => {
     setMessages((prev) => {
@@ -99,5 +114,7 @@ export const useMessageState = ({
     sendMessage,
     clearMessages,
     addReceivedMessage,
+    isProcessingLLM: isProcessing,
+    llmError: error,
   };
 };
