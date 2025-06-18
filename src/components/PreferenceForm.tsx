@@ -10,23 +10,17 @@ interface TourismGenre {
 }
 
 const tourismGenres: TourismGenre[] = [
-  { id: 'cultural', name: 'Cultural', imageUrl: '/cultural.jpg' },
-  { id: 'historical', name: 'Historical', imageUrl: '/historical.jpg' },
-  { id: 'art-museums', name: 'Art & Museums', imageUrl: '/art-musuem.jpg' },
-  { id: 'nature-wildlife', name: 'Nature & Wildlife', imageUrl: '/nature&wildlife.jpg' },
   { id: 'adventure', name: 'Adventure & Exploration', imageUrl: '/adventure.jpg' },
-  { id: 'eco-tourism', name: 'Eco-tourism', imageUrl: '/nature&wildlife.jpg' },
-  { id: 'religious', name: 'Religious', imageUrl: '/religion.jpg' },
-  { id: 'food-culinary', name: 'Food & Culinary', imageUrl: '/food.jpg' },
-  { id: 'beach-coastal', name: 'Beach & Coastal', imageUrl: '/beach.jpg' },
-  { id: 'luxury-wellness', name: 'Luxury & Wellness', imageUrl: '/wellness.jpg' },
-  { id: 'shopping & fashion', name: 'Shopping & Fashion', imageUrl: '/shopping.jpg' },
-  { id: 'family-friendly', name: 'Family-friendly', imageUrl: '/family.jpg' },
-  { id: 'nightlife-entertainment', name: 'Nightlife & Entertainment', imageUrl: '/nightlife.jpg' },
-  { id: 'sports-events', name: 'Sports & Events', imageUrl: '/universal.jpg' },
-  { id: 'festivals-celebrations', name: 'Festivals & Celebrations', imageUrl: '/festival.jpg' },
-  { id: 'architecture', name: 'Architecture', imageUrl: '/architecture.jpg' },
-  { id: 'technology & innovation', name: 'Technology & Innovation', imageUrl: '/universal.jpg' }
+  { id: 'arts', name: 'Arts & Museums', imageUrl: '/art-musuem.jpg' },
+  { id: 'fitness_holistic_wellness', name: 'Fitness & Holistic Wellness', imageUrl: '/wellness.jpg' },
+  { id: 'history_culture', name: 'History & Culture', imageUrl: '/historical.jpg' },
+  { id: 'recreation_leisure', name: 'Leisure & Recreation', imageUrl: '/recreation.jpg' },
+  { id: 'nature_wildlife', name: 'Nature & Wildlife', imageUrl: '/nature&wildlife.jpg' },
+  { id: 'entertainment', name: 'Entertainment & Nightlife', imageUrl: '/nightlife.jpg' },
+  { id: 'food_beverage', name: 'Food & Beverages', imageUrl: '/food.jpg' },
+  { id: 'shopping', name: 'Shopping & Fashion', imageUrl: '/shopping.jpg' },
+  { id: 'sport', name: 'Sports & Events', imageUrl: '/universal.jpg' },
+  { id: 'others', name: 'Other Attractions', imageUrl: '/others.jpg' }
 ];
 
 export default function PreferenceForm() {
