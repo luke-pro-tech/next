@@ -87,7 +87,7 @@ export class STBMapService {
 
   constructor(config: STBApiConfig = {}) {
     this.config = {
-      baseUrl: config.baseUrl || 'https://api.stb.gov.sg',
+      baseUrl: config.baseUrl || process.env.STB_API_BASE_URL || 'https://api.stb.gov.sg',
       apiKey: config.apiKey || process.env.STB_API_KEY,
       ...config
     };

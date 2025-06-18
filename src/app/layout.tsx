@@ -39,17 +39,14 @@ export default function RootLayout({
         <meta name="theme-color" content="#ef4444" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-      </head>
-      <body
+      </head>      <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <NavigationDock />
-        <ActiveAvatar />
-        
-        <main className="pt-60 h-screen w-full bg-white overflow-hidden">
+        <main className="min-h-screen w-full bg-white">
           {children}
         </main>
+        <NavigationDock />
+        <ActiveAvatar />
       </body>
     </html>
   );

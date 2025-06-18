@@ -749,9 +749,8 @@ export default function MapPage() {
 
     initMap();
   }, [likedLocations, userLocation]);
-
   return (
-    <div className="h-full map-container relative">
+    <div className="fixed inset-0 w-full h-screen map-container relative">
       {/* Map */}
       {mapError ? (
         <div className="w-full h-full flex items-center justify-center bg-gray-100">
