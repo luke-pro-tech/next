@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.830.0",
+    "@aws-sdk/client-transcribe-streaming": "^3.830.0",
     "@googlemaps/js-api-loader": "^1.16.8",
     "@react-spring/web": "^9.7.5",
     "@types/google.maps": "^3.58.1",

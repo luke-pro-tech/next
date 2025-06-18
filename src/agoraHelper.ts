@@ -161,3 +161,25 @@ export async function sendMessageToAvatar(client: RTCClient, messageId: string, 
     }
   }
 }
+
+// New function to send message with LLM processing
+export async function sendMessageToAvatarWithLLM(
+  client: RTCClient, 
+  messageId: string, 
+  content: string,
+  processWithLLM: (text: string) => Promise<string>
+) {
+  try {
+    // Process the content through LLM first
+    const processedContent = await processWithLLM(content);
+
+    console.log(`Processed content with LLM: ${processedContent}`);
+    
+    // Send the processed content to avatar
+    return await sendMessageToAvatar(client, messageId, processedContent);
+  } catch (error) {
+    log('Error processing message with LLM:', error);
+    // Fallback to original content if LLM processing fails
+    return await sendMessageToAvatar(client, messageId, content);
+  }
+}

@@ -27,10 +27,20 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ client, connected, micEna
     }
   }, []);
 
-  const { messages, inputMessage, setInputMessage, sendMessage, addReceivedMessage, clearMessages } = useMessageState({
+  const { 
+    messages, 
+    inputMessage, 
+    setInputMessage, 
+    sendMessage, 
+    addReceivedMessage, 
+    clearMessages,
+    isProcessingLLM,
+    llmError 
+  } = useMessageState({
     client,
     connected,
     onStreamMessage: handleStreamMessage,
+    enableLLM: true, // Enable LLM processing
   });
 
   useEffect(() => {
@@ -74,6 +84,22 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ client, connected, micEna
         <div ref={messagesEndRef} />
       </div>
       <div className="chat-input">
+        {/* LLM Processing Status */}
+        {isProcessingLLM && (
+          <div className="llm-status processing">
+            <span className="material-icons">psychology</span>
+            Processing with AI...
+          </div>
+        )}
+        
+        {/* LLM Error Display */}
+        {llmError && (
+          <div className="llm-status error">
+            <span className="material-icons">warning</span>
+            LLM Error: {llmError}
+          </div>
+        )}
+        
         <button
           onClick={toggleMicInternal}
           disabled={!connected}
@@ -86,20 +112,22 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ client, connected, micEna
           <>
             <input
               type="text"
-              placeholder={'Type a message...'}
-              disabled={!connected}
-              className={!connected ? 'disabled' : ''}
+              placeholder={isProcessingLLM ? 'Processing...' : 'Type a message...'}
+              disabled={!connected || isProcessingLLM}
+              className={!connected || isProcessingLLM ? 'disabled' : ''}
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyUp={(e) => e.key === 'Enter' && sendMessage()}
             />
             <button
               onClick={sendMessage}
-              disabled={!connected}
-              className={`icon-button ${!connected ? 'disabled' : ''}`}
+              disabled={!connected || isProcessingLLM || !inputMessage.trim()}
+              className={`icon-button ${!connected || isProcessingLLM || !inputMessage.trim() ? 'disabled' : ''}`}
               title="Send message"
             >
-              <span className="material-icons">send</span>
+              <span className="material-icons">
+                {isProcessingLLM ? 'hourglass_empty' : 'send'}
+              </span>
             </button>
             <button
               onClick={() => interruptResponse(client)}

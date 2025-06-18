@@ -212,6 +212,7 @@ export const useStreaming = (
       avatar_id: avatarId,
       duration: sessionDuration * 60,
     });
+    console.log('createSession response:', data);
     log(data);
     updateState({ session: data });
 
