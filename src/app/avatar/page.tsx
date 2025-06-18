@@ -2,6 +2,7 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { AgoraProvider } from '@/contexts/AgoraContext';
 
 // Dynamically import Akool component to prevent SSR issues with Agora SDK
@@ -31,8 +32,57 @@ const Akool = dynamic(() => import('@/components/Akool'), {
 });
 
 export default function AvatarPage() {
+  const router = useRouter();
+
+  const handlePreferences = () => {
+    router.push('/preferences');
+  };
+
+  const handleMaps = () => {
+    router.push('/map');
+  };
+
   return (
     <div className="relative w-full h-screen overflow-hidden">
+      {/* Navigation buttons */}
+      <div className="absolute top-4 right-4 z-50 flex flex-col gap-3">
+        {/* Preference Page button */}
+        <button
+          onClick={handlePreferences}
+          className="bg-black/30 backdrop-blur-xl rounded-full px-4 py-3 border border-white/20 hover:bg-red-500/40 transition-all duration-200 group"
+          aria-label="Go to Preference Page"
+        >
+          <span className="text-white text-sm font-medium group-hover:text-gray-200">
+            Preference Page
+          </span>
+        </button>
+
+        {/* Maps button */}
+        <button
+          onClick={handleMaps}
+          className="bg-black/30 backdrop-blur-xl rounded-full px-4 py-3 border border-white/20 hover:bg-red-500/40 transition-all duration-200 group flex items-center gap-2"
+          aria-label="Go to Maps"
+        >
+          <svg
+            className="w-4 h-4 text-white group-hover:text-gray-200"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+            />
+          </svg>
+          <span className="text-white text-sm font-medium group-hover:text-gray-200">
+            Maps
+          </span>
+        </button>
+      </div>
+      
       <AgoraProvider>
         <Akool />
       </AgoraProvider>

@@ -5,6 +5,13 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { FaMapMarkerAlt, FaCar, FaWalking, FaTrain, FaPlane, FaBus } from 'react-icons/fa';
 import DestinationDetails from '@/components/DestinationDetails';
 
+// Add type declarations for Google Maps classes
+declare global {
+  interface Window {
+    google: typeof google;
+  }
+}
+
 interface LikedCard {
   image: string;
   country: string;
@@ -91,7 +98,7 @@ const generateTravelSegment = (from: LikedCard, to: LikedCard): TravelSegment =>
 // Sample locations with coordinates for the map
 const sampleLocations: LikedCard[] = [
   {
-    image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=400&h=600&fit=crop&auto=format',
+    image: 'https://destinationlesstravel.com/wp-content/uploads/2022/10/The-Christ-the-Redeemer-with-Rio-de-Janeiro-in-the-background-as-seen-from-a-scenic-flight.jpg.webp',
     country: 'Brazil',
     title: 'Rio de Janeiro',
     rating: 5.0,
@@ -109,13 +116,13 @@ const sampleLocations: LikedCard[] = [
       'Explore the colorful Santa Teresa neighborhood'
     ],
     images: [
-      'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=600&h=400&fit=crop',
+      'https://destinationlesstravel.com/wp-content/uploads/2022/10/The-Christ-the-Redeemer-with-Rio-de-Janeiro-in-the-background-as-seen-from-a-scenic-flight.jpg.webp',
       'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=600&h=400&fit=crop'
     ]
   },
   {
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop&auto=format',
+    image: 'https://hikingphotographer.uk/wp-content/uploads/2024/08/cadini-de-misurina-dolomites-italy-iStock-1496115573-scaled.jpg',
     country: 'Italy',
     title: 'Dolomites',
     rating: 4.8,
@@ -133,13 +140,13 @@ const sampleLocations: LikedCard[] = [
       'Visit traditional mountain huts and taste local South Tyrolean cuisine'
     ],
     images: [
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop',
+      'https://hikingphotographer.uk/wp-content/uploads/2024/08/cadini-de-misurina-dolomites-italy-iStock-1496115573-scaled.jpg',
       'https://images.unsplash.com/photo-1551524164-6cf2ac8ee55a?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop'
     ]
   },
   {
-    image: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=400&h=600&fit=crop&auto=format',
+    image: 'https://media.cntraveller.com/photos/611be9bb69410e829d87e0c2/16:9/w_2240,c_limit/Blue-domed-church-along-caldera-edge-in-Oia-Santorini-greece-conde-nast-traveller-11aug17-iStock.jpg',
     country: 'Greece',
     title: 'Santorini',
     rating: 4.9,
@@ -157,13 +164,13 @@ const sampleLocations: LikedCard[] = [
       'Take a boat tour around the volcanic caldera'
     ],
     images: [
-      'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=600&h=400&fit=crop',
+      'https://media.cntraveller.com/photos/611be9bb69410e829d87e0c2/16:9/w_2240,c_limit/Blue-domed-church-along-caldera-edge-in-Oia-Santorini-greece-conde-nast-traveller-11aug17-iStock.jpg',
       'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=600&h=400&fit=crop'
     ]
   },
   {
-    image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=400&h=600&fit=crop&auto=format',
+    image: 'https://a.travel-assets.com/findyours-php/viewfinder/images/res70/490000/490338-lake-kawaguchi.jpg',
     country: 'Japan',
     title: 'Mount Fuji',
     rating: 4.7,
@@ -181,13 +188,13 @@ const sampleLocations: LikedCard[] = [
       'Take photos from various viewpoints around the region'
     ],
     images: [
-      'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=600&h=400&fit=crop',
+      'https://a.travel-assets.com/findyours-php/viewfinder/images/res70/490000/490338-lake-kawaguchi.jpg',
       'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=600&h=400&fit=crop'
     ]
   },
   {
-    image: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=600&fit=crop&auto=format',
+    image: 'https://images.goway.com/production/styles/hero_s1_3xl/s3/hero/iStock-1339071089.jpg?h=89a15586&itok=zl7tkVHj',
     country: 'Peru',
     title: 'Machu Picchu',
     rating: 4.9,
@@ -205,13 +212,13 @@ const sampleLocations: LikedCard[] = [
       'Learn about Incan engineering and astronomical knowledge'
     ],
     images: [
-      'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=600&h=400&fit=crop',
+      'https://images.goway.com/production/styles/hero_s1_3xl/s3/hero/iStock-1339071089.jpg?h=89a15586&itok=zl7tkVHj',
       'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=600&h=400&fit=crop'
     ]
   },
   {
-    image: 'https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=400&h=600&fit=crop&auto=format',
+    image: 'https://res.cloudinary.com/icelandtours/g_auto,f_auto,c_fill,w_2048,q_auto:good/northern_lights_above_glacier_lagoon_v2osk_unsplash_7d39ca647f.jpg',
     country: 'Iceland',
     title: 'Northern Lights',
     rating: 4.6,
@@ -229,7 +236,7 @@ const sampleLocations: LikedCard[] = [
       'Experience the unique Icelandic culture in Reykjavik'
     ],
     images: [
-      'https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=600&h=400&fit=crop',
+      'https://res.cloudinary.com/icelandtours/g_auto,f_auto,c_fill,w_2048,q_auto:good/northern_lights_above_glacier_lagoon_v2osk_unsplash_7d39ca647f.jpg',
       'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1551524164-0d71dc2f8645?w=600&h=400&fit=crop'
     ]
@@ -246,6 +253,13 @@ export default function MapPage() {
   const [selectedDestination, setSelectedDestination] = useState<LikedCard | null>(null);
   const [selectedDestinationIndex, setSelectedDestinationIndex] = useState<number>(0);
   const [isDestinationDetailsOpen, setIsDestinationDetailsOpen] = useState(false);
+  
+  // Map popup state
+  const [mapPopup, setMapPopup] = useState<{
+    location: LikedCard;
+    position: { x: number; y: number };
+    visible: boolean;
+  } | null>(null);
 
   // Draggable panel state
   const [panelHeight, setPanelHeight] = useState(120); // Initial collapsed height
@@ -335,7 +349,37 @@ export default function MapPage() {
   const handleDestinationClick = (destination: LikedCard, index: number) => {
     setSelectedDestination(destination);
     setSelectedDestinationIndex(index);
-    setIsDestinationDetailsOpen(true);
+    setIsDestinationDetailsOpen(false);
+    
+    // Zoom to location on map
+    if (map && destination.lat && destination.lng) {
+      const targetLocation = { lat: destination.lat, lng: destination.lng };
+      
+      // Close any existing popup immediately
+      setMapPopup(null);
+      
+      // Smooth pan to the location (Google Maps handles animation automatically)
+      map.panTo(targetLocation);
+      
+      // Smooth zoom animation with delay for better visual effect
+      setTimeout(() => {
+        map.setZoom(2);
+      }, 800); // Delay zoom to create staged animation
+      
+      // Show popup for this location after a brief delay
+      setTimeout(() => {
+        setMapPopup({
+          location: destination,
+          position: { x: window.innerWidth / 2, y: window.innerHeight / 2 },
+          visible: true
+        });
+        
+        // Collapse the itinerary panel after showing the popup
+        setTimeout(() => {
+          setPanelHeight(minHeight);
+        }, 200); // Small delay to let popup appear first
+      }, 500); // Wait for pan animation to complete
+    }
   };
 
   const handleCloseDestinationDetails = () => {
@@ -419,11 +463,13 @@ export default function MapPage() {
       const loader = new Loader({
         apiKey,
         version: 'weekly',
+        libraries: ['routes'] // Add routes library for DirectionsService
       });
 
       try {
         const { Map } = await loader.importLibrary('maps');
         const { AdvancedMarkerElement } = await loader.importLibrary('marker');
+        const { DirectionsService } = await loader.importLibrary('routes');
 
         // Calculate center point and zoom level
         let mapCenter;
@@ -464,12 +510,22 @@ export default function MapPage() {
           ]
         });
 
+        // Add click listener to map to close popup
+        mapInstance.addListener('click', () => {
+          setMapPopup(null);
+        });
+
+        // Add drag/pan listener to map to close popup when user pans
+        mapInstance.addListener('dragstart', () => {
+          setMapPopup(null);
+        });
+
         // Add user location marker if available
         if (userLocation) {
           const userMarkerElement = document.createElement('div');
           userMarkerElement.className = 'w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-lg animate-pulse';
           
-          const userMarker = new AdvancedMarkerElement({
+          const userMarker = new google.maps.marker.AdvancedMarkerElement({
             position: userLocation,
             map: mapInstance,
             title: 'Your Location',
@@ -480,25 +536,198 @@ export default function MapPage() {
         // Add markers for each liked location
         likedLocations.forEach((location, index) => {
           if (location.lat && location.lng) {
-            // Create custom marker element
-            const markerElement = document.createElement('div');
-            markerElement.className = 'w-8 h-8 bg-red-500 rounded-full border-2 border-white shadow-lg flex items-center justify-center cursor-pointer hover:bg-red-600 transition-colors';
-            markerElement.innerHTML = '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>';
+            // Find all visits to this location (including current one)
+            const allVisits = likedLocations
+              .map((loc, idx) => ({ loc, idx }))
+              .filter(({ loc }) => 
+                loc.title === location.title && 
+                loc.country === location.country
+              )
+              .map(({ idx }) => idx + 1); // Convert to 1-based visit numbers
 
-            const marker = new AdvancedMarkerElement({
-              position: { lat: location.lat, lng: location.lng },
-              map: mapInstance,
-              title: location.title,
-              content: markerElement,
-            });
+            // Only create marker for the first occurrence of each location
+            const isFirstOccurrence = likedLocations.findIndex(loc => 
+              loc.title === location.title && loc.country === location.country
+            ) === index;
 
-            // Add click listener to show location details
-            marker.addListener('click', () => {
-              // Optional: Could add minimal popup or highlight functionality here
-              console.log('Clicked on:', location.title);
-            });
+            if (isFirstOccurrence) {
+              // Create a single container with both heart and labels together
+              const markerContainer = document.createElement('div');
+              markerContainer.className = 'relative cursor-pointer';
+              markerContainer.style.width = '32px';
+              markerContainer.style.height = '32px';
+              
+              // Create the heart icon as the base
+              const heartElement = document.createElement('div');
+              heartElement.className = 'w-8 h-8 bg-red-500 rounded-full border-2 border-white shadow-lg flex items-center justify-center hover:bg-red-600 transition-colors';
+              heartElement.innerHTML = '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>';
+              
+              // Create labels container positioned on top of heart
+              const labelsContainer = document.createElement('div');
+              labelsContainer.className = 'absolute flex items-center gap-1';
+              labelsContainer.style.top = '-8px'; // Position above the heart
+              labelsContainer.style.left = '50%';
+              labelsContainer.style.transform = 'translateX(-50%)'; // Center horizontally
+              labelsContainer.style.zIndex = '1000';
+              
+              // Add a label for each visit to this location
+              allVisits.forEach((visitNumber, visitIndex) => {
+                const labelElement = document.createElement('div');
+                labelElement.className = 'w-5 h-5 bg-blue-600 text-white rounded-full border border-white shadow-md flex items-center justify-center text-xs font-bold';
+                labelElement.textContent = visitNumber.toString();
+                labelElement.style.fontSize = '10px';
+                labelElement.style.fontWeight = 'bold';
+                labelElement.style.minWidth = '20px';
+                labelElement.style.minHeight = '20px';
+                labelsContainer.appendChild(labelElement);
+              });
+              
+              // Add both elements to the container (heart first, then labels on top)
+              markerContainer.appendChild(heartElement);
+              markerContainer.appendChild(labelsContainer);
+
+              // Create the marker with the composite element
+              const marker = new google.maps.marker.AdvancedMarkerElement({
+                position: { lat: location.lat, lng: location.lng },
+                map: mapInstance,
+                title: `${location.title} (Visits: ${allVisits.join(', ')})`,
+                content: markerContainer,
+              });
+
+              // Add click listener to show location details
+              marker.addListener('click', () => {
+                // Get marker position in screen coordinates
+                const projection = mapInstance.getProjection();
+                if (projection) {
+                  const latLng = new google.maps.LatLng(location.lat!, location.lng!);
+                  const position = projection.fromLatLngToPoint(latLng);
+                  
+                  if (position) {
+                    const scale = Math.pow(2, mapInstance.getZoom()!);
+                    
+                    // Show popup at center of screen for simplicity
+                    const mapDiv = mapRef.current!;
+                    const mapBounds = mapDiv.getBoundingClientRect();
+                    
+                    setMapPopup({
+                      location,
+                      position: { x: mapBounds.width / 2, y: mapBounds.height / 2 },
+                      visible: true
+                    });
+                  }
+                }
+              });
+            }
           }
         });
+
+        // Add routing between heart markers based on chronological itinerary flow
+        if (likedLocations.length > 1) {
+          const directionsService = new google.maps.DirectionsService();
+          
+          // Filter locations with valid coordinates
+          const validLocations = likedLocations.filter(loc => loc.lat && loc.lng);
+          
+          if (validLocations.length >= 2) {
+            // Create one complete route through all locations in chronological order
+            const origin = validLocations[0];
+            const destination = validLocations[validLocations.length - 1];
+            const waypoints = validLocations.slice(1, -1).map(location => ({
+              location: new google.maps.LatLng(location.lat!, location.lng!),
+              stopover: true
+            }));
+
+            const request: google.maps.DirectionsRequest = {
+              origin: new google.maps.LatLng(origin.lat!, origin.lng!),
+              destination: new google.maps.LatLng(destination.lat!, destination.lng!),
+              waypoints: waypoints,
+              optimizeWaypoints: false, // Keep chronological order
+              travelMode: google.maps.TravelMode.DRIVING,
+              avoidHighways: false,
+              avoidTolls: false
+            };
+
+            // Get and display the route
+            directionsService.route(request, (result, status) => {
+              if (status === 'OK' && result) {
+                const route = result.routes[0];
+                if (route && route.legs) {
+                  // Extract all points along the route
+                  const routePoints: google.maps.LatLng[] = [];
+                  
+                  route.legs.forEach(leg => {
+                    leg.steps?.forEach(step => {
+                      if (step.path) {
+                        routePoints.push(...step.path);
+                      }
+                    });
+                  });
+
+                  if (routePoints.length > 0) {
+                    // Create dotted polyline connecting all hearts in chronological order
+                    const routePolyline = new google.maps.Polyline({
+                      path: routePoints,
+                      geodesic: true,
+                      strokeColor: '#EF4444', // Red to match heart markers
+                      strokeOpacity: 0, // Make stroke transparent to show only dots
+                      strokeWeight: 4,
+                      icons: [{
+                        icon: {
+                          path: google.maps.SymbolPath.CIRCLE,
+                          fillOpacity: 1,
+                          fillColor: '#EF4444',
+                          strokeColor: '#EF4444',
+                          strokeWeight: 1,
+                          scale: 3
+                        },
+                        offset: '0',
+                        repeat: '20px' // Spacing between dots
+                      }],
+                      map: mapInstance
+                    });
+
+                    console.log(`Route created connecting ${validLocations.length} heart locations in chronological order`);
+                  }
+                }
+              } else {
+                console.warn('Directions request failed:', status);
+                
+                // Fallback: Create straight line segments if routing fails
+                for (let i = 0; i < validLocations.length - 1; i++) {
+                  const start = validLocations[i];
+                  const end = validLocations[i + 1];
+                  
+                  const fallbackPath = [
+                    { lat: start.lat!, lng: start.lng! },
+                    { lat: end.lat!, lng: end.lng! }
+                  ];
+
+                  new google.maps.Polyline({
+                    path: fallbackPath,
+                    geodesic: true,
+                    strokeColor: '#EF4444',
+                    strokeOpacity: 0,
+                    strokeWeight: 3,
+                    icons: [{
+                      icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillOpacity: 0.7,
+                        fillColor: '#EF4444',
+                        strokeColor: '#EF4444',
+                        strokeWeight: 1,
+                        scale: 2
+                      },
+                      offset: '0',
+                      repeat: '25px'
+                    }],
+                    map: mapInstance
+                  });
+                }
+                console.log('Used fallback straight-line routing');
+              }
+            });
+          }
+        }
 
         // If we don't have user location but have liked locations, fit bounds to show all
         if (!userLocation && likedLocations.length > 0) {
@@ -531,6 +760,79 @@ export default function MapPage() {
         <div ref={mapRef} className="w-full h-full" />
       )}
 
+      {/* Map popup for location details */}
+      {mapPopup && mapPopup.visible && (
+        <div 
+          className="absolute z-50 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform -translate-x-1/2 -translate-y-full"
+          style={{
+            left: `${mapPopup.position.x}px`,
+            top: `${mapPopup.position.y - 20}px`,
+            width: '250px',
+            maxWidth: '85vw'
+          }}
+        >
+          {/* Close button */}
+          <button
+            onClick={() => setMapPopup(null)}
+            className="absolute top-3 right-3 z-10 w-8 h-8 bg-black/20 hover:bg-black/30 rounded-full flex items-center justify-center transition-colors"
+          >
+            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Location image */}
+          <div className="relative h-30">
+            <img
+              src={mapPopup.location.image}
+              alt={mapPopup.location.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-lg font-bold">{mapPopup.location.title}</h3>
+              <p className="text-sm opacity-90">{mapPopup.location.country}</p>
+            </div>
+          </div>
+
+          {/* Location details */}
+          <div className="p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center">
+                {[...Array(5)].map((_, i) => (
+                  <svg
+                    key={i}
+                    className={`w-4 h-4 ${i < Math.floor(mapPopup.location.rating) ? 'text-yellow-400' : 'text-gray-300'}`}
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+                <span className="ml-1 text-sm text-gray-600">
+                  {mapPopup.location.rating} ({mapPopup.location.reviews} reviews)
+                </span>
+              </div>
+            </div>
+            
+            <p className="text-gray-700 text-sm mb-4 line-clamp-3">
+              {mapPopup.location.description}
+            </p>
+
+            <button
+              onClick={() => {
+                setSelectedDestination(mapPopup.location);
+                setIsDestinationDetailsOpen(true);
+                setMapPopup(null);
+              }}
+              className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg font-medium transition-colors"
+            >
+              View Full Details
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Draggable itinerary panel */}
       <div
         ref={panelRef}
@@ -555,11 +857,16 @@ export default function MapPage() {
         </div>
 
         {/* Panel content */}
-        <div className="p-4 overflow-y-auto" style={{ height: `${panelHeight - 56}px` }}>
-          <h2 className="text-xl font-bold text-gray-800 mb-4 sticky top-0 bg-white z-10">
-            Your Itinerary
-          </h2>
+        <div className="flex flex-col" style={{ height: `${panelHeight - 56}px` }}>
+          {/* Fixed header */}
+          <div className="px-4 pt-4 pb-2 bg-white border-b border-gray-100">
+            <h2 className="text-xl font-bold text-gray-800">
+              Your Itinerary
+            </h2>
+          </div>
           
+          {/* Scrollable content */}
+          <div className="flex-1 overflow-y-auto px-4 pb-4">
           <div className="space-y-6 relative ml-6">
             {likedLocations.map((location, index) => {
               // Calculate arrival time for this destination
@@ -577,7 +884,10 @@ export default function MapPage() {
               return (
                 <div key={index}>
                   {/* Location item */}
-                  <div className="relative pl-8">
+                  <div 
+                    className="relative pl-8 cursor-pointer hover:bg-gray-50 rounded-lg p-2 -m-2 transition-colors duration-200"
+                    onClick={() => handleDestinationClick(location, index)}
+                  >
                     {/* Vertical dashed line */}
                     {index < likedLocations.length - 1 && (
                       <span className="absolute left-2 top-8 h-full border-l-2 border-dashed border-orange-400" />
@@ -592,15 +902,13 @@ export default function MapPage() {
                       <img
                         src={location.image}
                         alt={location.title}
-                        className="w-16 h-16 rounded-xl object-cover cursor-pointer"
-                        onClick={() => handleDestinationClick(location, index)}
+                        className="w-16 h-16 rounded-xl object-cover hover:scale-105 transition-transform duration-200"
                       />
                       <div className="flex-1">
                         <div className="flex items-start justify-between">
                           <div>
                             <h3 
-                              className="font-semibold text-gray-800 text-base cursor-pointer hover:text-orange-600 transition-colors"
-                              onClick={() => handleDestinationClick(location, index)}
+                              className="font-semibold text-gray-800 text-base hover:text-orange-600 transition-colors"
                             >
                               {location.title}
                             </h3>
@@ -651,6 +959,7 @@ export default function MapPage() {
                 </div>
               );
             })}
+          </div>
           </div>
         </div>
       </div>

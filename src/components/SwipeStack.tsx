@@ -19,7 +19,7 @@ interface SwipeStackProps {
 
 const cards: Card[] = [
   {
-    image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=400&h=600&fit=crop&auto=format',
+    image: 'https://destinationlesstravel.com/wp-content/uploads/2022/10/The-Christ-the-Redeemer-with-Rio-de-Janeiro-in-the-background-as-seen-from-a-scenic-flight.jpg.webp',
     country: 'Brazil',
     title: 'Rio de Janeiro',
     rating: 5.0,
@@ -28,7 +28,7 @@ const cards: Card[] = [
     lng: -43.1729,
   },
   {
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop&auto=format',
+    image: 'https://hikingphotographer.uk/wp-content/uploads/2024/08/cadini-de-misurina-dolomites-italy-iStock-1496115573-scaled.jpg',
     country: 'Italy',
     title: 'Dolomites',
     rating: 4.8,
@@ -37,7 +37,7 @@ const cards: Card[] = [
     lng: 11.8440,
   },
   {
-    image: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=400&h=600&fit=crop&auto=format',
+    image: 'https://media.cntraveller.com/photos/611be9bb69410e829d87e0c2/16:9/w_2240,c_limit/Blue-domed-church-along-caldera-edge-in-Oia-Santorini-greece-conde-nast-traveller-11aug17-iStock.jpg',
     country: 'Greece',
     title: 'Santorini',
     rating: 4.9,
@@ -46,7 +46,7 @@ const cards: Card[] = [
     lng: 25.4615,
   },
   {
-    image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=400&h=600&fit=crop&auto=format',
+    image: 'https://a.travel-assets.com/findyours-php/viewfinder/images/res70/490000/490338-lake-kawaguchi.jpg',
     country: 'Japan',
     title: 'Mount Fuji',
     rating: 4.7,
@@ -55,7 +55,7 @@ const cards: Card[] = [
     lng: 138.7274,
   },
   {
-    image: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=600&fit=crop&auto=format',
+    image: 'https://images.goway.com/production/styles/hero_s1_3xl/s3/hero/iStock-1339071089.jpg?h=89a15586&itok=zl7tkVHj',
     country: 'Peru',
     title: 'Machu Picchu',
     rating: 4.9,
@@ -64,7 +64,7 @@ const cards: Card[] = [
     lng: -72.5450,
   },
   {
-    image: 'https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=400&h=600&fit=crop&auto=format',
+    image: 'https://res.cloudinary.com/icelandtours/g_auto,f_auto,c_fill,w_2048,q_auto:good/northern_lights_above_glacier_lagoon_v2osk_unsplash_7d39ca647f.jpg',
     country: 'Iceland',
     title: 'Northern Lights',
     rating: 4.6,

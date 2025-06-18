@@ -50,7 +50,7 @@ function Akool() {
       
       {/* Glassmorphism status bar */}
       <div className="absolute top-6 left-6 right-6 flex justify-between items-center z-20">
-        <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-2xl px-4 py-2 border border-white/20">
+        <div className="flex items-center gap-3 bg-red-500/10 backdrop-blur-md rounded-2xl px-4 py-2 border border-white/20">
           <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
           <span className="text-white text-sm font-medium">AI Avatar Assistant</span>
         </div>
