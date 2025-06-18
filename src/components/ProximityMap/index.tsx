@@ -467,7 +467,7 @@ export const ProximityMap: React.FC<ProximityMapProps> = ({
       </MapContainer>
 
       {/* Map legend */}
-      <div className="absolute bottom-4 left-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-lg p-3 shadow-lg z-[1000]">
+      <div className="absolute bottom-4 left-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
         <div className="text-xs font-semibold text-gray-700 mb-2">Map Legend</div>
         <div className="space-y-1 text-xs">
           <div className="flex items-center">
@@ -487,7 +487,7 @@ export const ProximityMap: React.FC<ProximityMapProps> = ({
 
       {/* Proximity threshold indicator */}
       {userLocation && (
-        <div className="absolute top-4 right-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-lg p-2 shadow-lg z-[1000]">
+        <div className="absolute top-4 right-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-lg p-2 shadow-lg z-[20]">
           <div className="text-xs text-gray-600">
             Proximity: {proximityThreshold}m
           </div>

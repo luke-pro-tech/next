@@ -262,7 +262,7 @@ export default function MapPage() {
   } | null>(null);
 
   // Draggable panel state
-  const [panelHeight, setPanelHeight] = useState(120); // Initial collapsed height
+  const [panelHeight, setPanelHeight] = useState(300); // Initial collapsed height
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
   const [startHeight, setStartHeight] = useState(0);
@@ -838,7 +838,7 @@ export default function MapPage() {
         ref={panelRef}
         className="absolute left-0 right-0 bg-white shadow-xl rounded-t-3xl border-t border-gray-200 overflow-hidden"
         style={{ 
-          bottom: '64px', // Raised to account for navigation dock
+          bottom: '0px', // Raised to account for navigation dock
           height: `${panelHeight}px`,
           transition: isDragging ? 'none' : 'height 0.3s ease-out'
         }}

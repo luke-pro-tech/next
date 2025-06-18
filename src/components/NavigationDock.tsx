@@ -8,11 +8,9 @@ export default function NavigationDock() {
   const pathname = usePathname();
   const [activePage, setActivePage] = useState('avatar');    // Update active page based on current path
   useEffect(() => {
-    if (pathname === '/') {
-      setActivePage('avatar');
-    } else if (pathname === '/map') {
+    if (pathname === '/map') {
       setActivePage('maps');
-    } else if (pathname === '/CulturalGuide' || pathname === '/stb-demo') {
+    } else if (pathname === '/CulturalGuide') {
       setActivePage('cultural-guide');
     } else if (pathname === '/preferences') {
       setActivePage('preferences');
@@ -46,18 +44,6 @@ export default function NavigationDock() {
             <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
           </svg>
           <span className="text-xs mt-0.5 text-center">Preferences</span>
-        </button>
-        
-        {/* AI Avatar */}
-        <button
-          onClick={handleAvatar}
-          className={`px-2 py-2 rounded-full flex flex-col items-center justify-center transition-all duration-200 min-w-[55px] ${activePage === 'avatar' ? 'bg-white/20 text-white' : 'text-white/70 hover:text-white'}`}
-          aria-label="Go to AI Avatar"
-        >
-          <svg className="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-          <span className="text-xs mt-0.5 text-center">AI Avatar</span>
         </button>
         
         {/* Cultural Guide */}

@@ -9,22 +9,49 @@ interface Tool {
 }
 
 const tools: Tool[] = [
+//   {
+//     "name": "getWeather",
+//     "description": "Get current weather information for a city or location",
+//     "parameters": {
+//       "type": "object",
+//       "properties": {
+//         "city": { 
+//           "type": "string", 
+//           "description": "The city name to get weather for" 
+//         },
+//         "country": { 
+//           "type": "string", 
+//           "description": "The country name (optional)" 
+//         }
+//       },
+//       "required": ["city"]
+//     }
+//   },
   {
-    "name": "getWeather",
-    "description": "Get current weather information for a city or location",
+    "name": "navigateToCultureGuide",
+    "description": "Navigate to the Culture Guide page to get recommendations on attractions, hidden gems, recommendations ",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  {
+    "name": "searchSTBData",
+    "description": "ONLY call this tool when user specifically mentions 'itinerary' or asks to create/plan an itinerary. Search Singapore Tourism Board data by category preferences and navigate to swipe page with curated itinerary options.",
     "parameters": {
       "type": "object",
       "properties": {
-        "city": { 
-          "type": "string", 
-          "description": "The city name to get weather for" 
-        },
-        "country": { 
-          "type": "string", 
-          "description": "The country name (optional)" 
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["accommodation", "attractions", "events", "food_beverages", "mice_events", "precincts", "shops", "tours"]
+          },
+          "description": "Array of STB dataset categories to search for itinerary planning. Valid options: accommodation, attractions, events, food_beverages, mice_events, precincts, shops, tours"
         }
       },
-      "required": ["city"]
+      "required": ["datasets"]
     }
   }
 ];
@@ -48,4 +75,42 @@ export const getFakeWeatherData = (city: string, country?: string): string => {
   const location = country ? `${city}, ${country}` : city;
   
   return `Current weather in ${location}: ${temp}°C, ${condition}. Humidity: ${hum}%, Wind: ${wind} km/h. Perfect for exploring the city!`;
+};
+
+// Culture guide navigation handler
+export const navigateToCultureGuide = (): string => {
+  if (typeof window !== 'undefined') {
+    // Use Next.js router for client-side navigation to avoid page reload
+    const event = new CustomEvent('navigate-to-culture-guide');
+    window.dispatchEvent(event);
+  }
+  
+  return `I'm taking you to the Culture Guide page where you can explore cultural insights, local customs, traditions, etiquette, and travel tips for various destinations around the world.`;
+};
+
+// STB data search handler
+export const searchSTBData = (datasets: string[]): string => {
+  if (typeof window !== 'undefined') {
+    // Store selected datasets in localStorage for the swipe page to use
+    localStorage.setItem('selectedDatasets', JSON.stringify(datasets));
+    // Use custom event for client-side navigation to avoid page reload
+    const event = new CustomEvent('navigate-to-swipe');
+    window.dispatchEvent(event);
+  }
+  
+  const datasetNames = datasets.map(id => {
+    const nameMap: Record<string, string> = {
+      'accommodation': 'Accommodation',
+      'attractions': 'Attractions', 
+      'events': 'Events',
+      'food_beverages': 'Food & Beverages',
+      'mice_events': 'MICE Events',
+      'precincts': 'Precincts',
+      'shops': 'Shopping',
+      'tours': 'Tours'
+    };
+    return nameMap[id] || id;
+  }).join(', ');
+  
+  return datasetNames;
 };

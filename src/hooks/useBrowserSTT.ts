@@ -19,6 +19,9 @@ export const useBrowserSTT = ({
   const [transcriptText, setTranscriptText] = useState('');
   const [isSupported, setIsSupported] = useState(false);
   const recognitionRef = useRef<any>(null);
+  const lastTranscriptRef = useRef<string>('');
+  const silenceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastTranscriptionTimeRef = useRef<number>(0);
 
   useEffect(() => {
     // Check if browser supports speech recognition
@@ -28,6 +31,13 @@ export const useBrowserSTT = ({
     if (!SpeechRecognition) {
       console.warn('Speech Recognition API not supported in this browser');
     }
+    
+    // Cleanup function
+    return () => {
+      if (silenceTimeoutRef.current) {
+        clearTimeout(silenceTimeoutRef.current);
+      }
+    };
   }, []);
 
   const startTranscription = useCallback(async () => {
@@ -49,6 +59,8 @@ export const useBrowserSTT = ({
       recognition.onstart = () => {
         setIsTranscribing(true);
         setTranscriptText('');
+        lastTranscriptRef.current = '';
+        lastTranscriptionTimeRef.current = 0;
         console.log('Browser STT: Started listening');
       };
 
@@ -70,10 +82,36 @@ export const useBrowserSTT = ({
         const fullTranscript = finalTranscript + interimTranscript;
         setTranscriptText(fullTranscript);
 
-        // Send final results to callback
+        // Handle final results with duplicate prevention and smart timing
         if (finalTranscript) {
-          console.log('Browser STT: Final transcript:', finalTranscript);
-          onTranscription(finalTranscript.trim());
+          const trimmedTranscript = finalTranscript.trim();
+          const currentTime = Date.now();
+          
+          // Prevent duplicate submissions
+          const isDuplicate = trimmedTranscript === lastTranscriptRef.current;
+          const isWithinCooldown = currentTime - lastTranscriptionTimeRef.current < 2000; // 2 second cooldown
+          
+          if (!isDuplicate && !isWithinCooldown && trimmedTranscript.length > 2) {
+            console.log('Browser STT: Final transcript:', trimmedTranscript);
+            lastTranscriptRef.current = trimmedTranscript;
+            lastTranscriptionTimeRef.current = currentTime;
+            onTranscription(trimmedTranscript);
+            
+            // Clear any existing silence timeout
+            if (silenceTimeoutRef.current) {
+              clearTimeout(silenceTimeoutRef.current);
+            }
+            
+            // Set a timeout to allow new input after a period of silence
+            silenceTimeoutRef.current = setTimeout(() => {
+              lastTranscriptRef.current = '';
+              console.log('Browser STT: Reset for new input after silence');
+            }, 5000); // Reset after 5 seconds of silence
+          } else if (isDuplicate) {
+            console.log('Browser STT: Duplicate transcript ignored:', trimmedTranscript);
+          } else if (isWithinCooldown) {
+            console.log('Browser STT: Transcript ignored due to cooldown');
+          }
         }
       };
 
@@ -105,6 +143,16 @@ export const useBrowserSTT = ({
       recognitionRef.current.stop();
       recognitionRef.current = null;
     }
+    
+    // Clear silence timeout
+    if (silenceTimeoutRef.current) {
+      clearTimeout(silenceTimeoutRef.current);
+      silenceTimeoutRef.current = null;
+    }
+    
+    // Reset tracking variables
+    lastTranscriptRef.current = '';
+    lastTranscriptionTimeRef.current = 0;
   }, [isTranscribing]);
 
   const restartTranscription = useCallback(() => {

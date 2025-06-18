@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavigationDock from '@/components/NavigationDock';
 import ActiveAvatar from "@/components/ActiveAvatar";
+import { AgoraProvider } from '@/contexts/AgoraContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,14 +40,17 @@ export default function RootLayout({
         <meta name="theme-color" content="#ef4444" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-      </head>      <body
+      </head>
+      <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main className="min-h-screen w-full bg-white">
-          {children}
-        </main>
-        <NavigationDock />
-        <ActiveAvatar />
+        <AgoraProvider>
+          <main className="min-h-screen w-full bg-white pt-40 pb-16">
+            {children}
+          </main>
+          <ActiveAvatar />
+          <NavigationDock />
+        </AgoraProvider>
       </body>
     </html>
   );

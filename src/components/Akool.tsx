@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { ApiService } from '../apiService';
 import VideoDisplay from '../components/VideoDisplay';
 import { useAudioControls } from '../hooks/useAudioControls';
@@ -9,6 +10,7 @@ import { useAgora } from '@/contexts/AgoraContext';
 import { useMessageState } from '../hooks/useMessageState';
 
 function Akool() {
+  const router = useRouter();
   const { client } = useAgora();
   const { 
     micEnabled, 
@@ -32,18 +34,17 @@ function Akool() {
 
   const [modeType, setModeType] = useState(1);
   const [language, setLanguage] = useState('en');
-  const [voiceId, setVoiceId] = useState('Xb7hH8MSUJpSbSDYk0k2');
+  const [voiceId, setVoiceId] = useState('6ef07a9f8c594f1d901746f29bcc9adb');
   const [backgroundUrl, setBackgroundUrl] = useState('https://plus.unsplash.com/premium_photo-1697730373939-3ebcaa9d295e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2luZ2Fwb3JlfGVufDB8fDB8fHww');
   const [voiceUrl, setVoiceUrl] = useState('');
 
   const [openapiHost, setOpenapiHost] = useState('https://openapi.akool.com');
-  const [avatarId, setAvatarId] = useState('UdzwXt51ZWRm92IIrhnGS');
-//   const [avatarVideoUrl, setAvatarVideoUrl] = useState('https://drz0f01yeq1cx.cloudfront.net/1750241572718-4854-IMG2431.mov');
-  const [avatarVideoUrl, setAvatarVideoUrl] = useState('http://localhost:3000/darren.mp4');
+  const [avatarId, setAvatarId] = useState('2lJrHRnX27l64Eq9Lx1Q2');
+  const [avatarVideoUrl, setAvatarVideoUrl] = useState('https://app.tienloc.org/darren.mp4');
 
 
   const [openapiToken, setOpenapiToken] = useState('');
-  const [sessionDuration, setSessionDuration] = useState(2);
+  const [sessionDuration, setSessionDuration] = useState(5);
   const [api, setApi] = useState<ApiService | null>(null);
 
   useEffect(() => {
@@ -51,6 +52,27 @@ function Akool() {
       setApi(new ApiService(openapiHost, openapiToken));
     }
   }, [openapiHost, openapiToken]);
+
+  // Navigation event listeners for tool-triggered navigation
+  useEffect(() => {
+    const handleNavigateToCultureGuide = () => {
+      router.push('/CulturalGuide');
+    };
+
+    const handleNavigateToSwipe = () => {
+      router.push('/swipe');
+    };
+
+    // Add event listeners
+    window.addEventListener('navigate-to-culture-guide', handleNavigateToCultureGuide);
+    window.addEventListener('navigate-to-swipe', handleNavigateToSwipe);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener('navigate-to-culture-guide', handleNavigateToCultureGuide);
+      window.removeEventListener('navigate-to-swipe', handleNavigateToSwipe);
+    };
+  }, [router]);
 
   const { isJoined, connected, remoteStats, startStreaming, closeStreaming } = useStreaming(
     avatarId,

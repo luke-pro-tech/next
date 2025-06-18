@@ -3,7 +3,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { AgoraProvider } from '@/contexts/AgoraContext';
 
 // Dynamically import Akool component to prevent SSR issues with Agora SDK
 const Akool = dynamic(() => import('@/components/Akool'), {
@@ -35,11 +34,8 @@ const ActiveAvatar: React.FC = () => {
   const router = useRouter();
 
   return (
-    <div className="fixed top-0 left-0 w-full h-60 overflow-hidden">
-       
-      <AgoraProvider>
-        <Akool />
-      </AgoraProvider>
+    <div className="fixed top-0 left-0 w-full h-40 overflow-hidden z-30">
+      <Akool />
     </div>
   );
 };

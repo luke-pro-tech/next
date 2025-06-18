@@ -1,4 +1,5 @@
 import { IAgoraRTCClient } from 'agora-rtc-sdk-ng';
+import { messageTracker } from './utils/messageTracker';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function log(...args: any[]) {
@@ -81,6 +82,14 @@ export async function interruptResponse(client: RTCClient) {
 }
 
 export async function sendMessageToAvatar(client: RTCClient, messageId: string, content: string) {
+  // Check for duplicate message using global tracker
+  if (!messageTracker.trackMessage(messageId)) {
+    log(`Duplicate message blocked: ${messageId}`);
+    return; // Exit early if message was already sent
+  }
+
+  log(`Sending new message: ${messageId}`);
+  
   // Move constants to top level for better configuration
   const MAX_ENCODED_SIZE = 950;
   const BYTES_PER_SECOND = 6000;

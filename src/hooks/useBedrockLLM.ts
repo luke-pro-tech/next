@@ -2,9 +2,10 @@
 
 import { useState, useCallback } from 'react';
 import { BedrockRuntimeClient, ConverseCommand } from '@aws-sdk/client-bedrock-runtime';
-import { getTools, getFakeWeatherData } from '../app/tools';
+import { getTools, getFakeWeatherData, navigateToCultureGuide, searchSTBData } from '../app/tools';
 
 export const useBedrockLLM = () => {
+
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [chatHistory, setChatHistory] = useState<Array<{role: 'user' | 'assistant', content: string}>>([]);
@@ -55,7 +56,24 @@ export const useBedrockLLM = () => {
         { 
           role: "assistant" as const, 
           content: [{ 
-            text: `You are a helpful travel assistant AI. Try to provide useful information based on user queries. if the user asks about weather, use the getWeather tool."`
+            text: `You are Vanda, a helpful travel AI.
+
+                TOOLS:
+                [
+                {
+                    "name": "navigateToCultureGuide",
+                    "description": "Opens the in-app Culture Guide page.",
+                    "parameters": { "type": "object", "properties": {}, "additionalProperties": false }
+                }
+                ]
+
+                RULES
+                1. If the user asks for *hidden gems or attractions* near any destination (or “my place”), immediately call the tool—output only the JSON call.  
+                2. Otherwise, reply normally.
+
+                EXAMPLE
+                User: “Can you recommend some hidden gems around my place?”
+                Assistant: {"tool":"navigateToCultureGuide"}`
           }] 
         },
         // Add chat history
@@ -116,6 +134,14 @@ export const useBedrockLLM = () => {
             // Generate fake weather data
             const weatherData = getFakeWeatherData(toolInput.city, toolInput.country);
             processedText = weatherData;
+          } else if (toolName === 'navigateToCultureGuide') {
+            // Navigate to culture guide page
+            const navigationResponse = navigateToCultureGuide();
+            processedText = navigationResponse;
+          } else if (toolName === 'searchSTBData' && toolInput?.datasets) {
+            // Search STB data and navigate to swipe page
+            const searchResponse = searchSTBData(toolInput.datasets);
+            processedText = searchResponse;
           } else {
             // Fallback: manually enhance the text since tool didn't provide expected output
             processedText = enhanceTextManually(inputText);

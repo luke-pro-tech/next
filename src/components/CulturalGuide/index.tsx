@@ -244,9 +244,9 @@ export const CulturalGuide: React.FC<CulturalGuideProps> = ({
         />
       )}      {/* Header */}
       <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+        {/* <h1 className="text-3xl font-bold text-gray-800 mb-2">
           🇸🇬 AI Cultural Guide Singapore
-        </h1>
+        </h1> */}
         <p className="text-gray-600 max-w-2xl mx-auto">
           Explore Singapore's attractions on the interactive map.
         </p>
@@ -405,7 +405,7 @@ export const CulturalGuide: React.FC<CulturalGuideProps> = ({
 
       {/* Loading Overlay */}
       {loading && (
-        <div className="fixed inset-0 bg-black bg-opacity-25 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-25 flex items-center justify-center">
           <div className="bg-white rounded-lg p-6 text-center">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
             <div className="text-gray-700">Loading nearby attractions...</div>
