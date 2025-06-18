@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import NavigationDock from '@/components/NavigationDock';
 import ActiveAvatar from "@/components/ActiveAvatar";
 
 const geistSans = Geist({
@@ -42,6 +43,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {children}
+        <NavigationDock />
         <ActiveAvatar />
         
         <main className="pt-60 h-screen w-full bg-white overflow-hidden">

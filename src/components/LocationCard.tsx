@@ -33,7 +33,7 @@ export default function LocationCard({
           See more →
         </button>
       </div>
-      <button className="absolute top-3 right-3 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-red-500/80 transition border border-white/20">
+      <button className="absolute top-3 right-3 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-red-500/80 transition border border-white/20 flex items-center justify-center">
         <FaHeart size={14} />
       </button>
     </div>
