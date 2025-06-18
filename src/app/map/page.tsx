@@ -750,7 +750,7 @@ export default function MapPage() {
   }, [likedLocations, userLocation]);
 
   return (
-    <div className="mobile-fullscreen map-container relative pb-16">
+    <div className="h-full map-container relative">
       {/* Map */}
       {mapError ? (
         <div className="w-full h-full flex items-center justify-center bg-gray-100">

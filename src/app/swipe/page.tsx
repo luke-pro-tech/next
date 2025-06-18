@@ -48,8 +48,8 @@ export default function SwipePage() {
   };
 
   return (
-    <div className="h-screen bg-gray-50 flex flex-col overflow-hidden pb-16">
-      <div className="px-4 py-3 max-w-md mx-auto w-full flex-1 flex flex-col">
+    <div className="h-full bg-gray-50 flex flex-col">
+      <div className="px-4 py-3 max-w-md mx-auto w-full h-full flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between mb-3 bg-white rounded-lg p-3 shadow-sm">
           <button 
@@ -70,7 +70,7 @@ export default function SwipePage() {
         </div>
 
         {/* Instructions */}
-        <div className="text-center mb-3 bg-white rounded-lg p-3 shadow-sm">
+        {/* <div className="text-center mb-3 bg-white rounded-lg p-3 shadow-sm">
           <p className="text-gray-600 mb-2 text-xs">
             Swipe right to like, left to pass
           </p>
@@ -88,10 +88,10 @@ export default function SwipePage() {
               <span>Like</span>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        {/* Swipe Stack */}
-        <main className="flex justify-center mb-3 flex-1">
+        {/* Swipe Stack - Constrained to available space */}
+        <main className="flex justify-center mb-3 flex-1 min-h-0 relative">
           <SwipeStack onCardLiked={handleCardLiked} />
         </main>
 
