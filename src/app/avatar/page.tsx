@@ -8,16 +8,23 @@ import { AgoraProvider } from '@/contexts/AgoraContext';
 const Akool = dynamic(() => import('@/components/Akool'), {
   ssr: false,
   loading: () => (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <div className="animate-pulse">
-        <div className="h-8 bg-gray-200 rounded w-1/2 mx-auto mb-6"></div>
-        <div className="w-full h-96 bg-gray-200 rounded-lg mb-6"></div>
-        <div className="flex gap-4 justify-center mb-4">
-          <div className="h-10 bg-gray-200 rounded w-32"></div>
-          <div className="h-10 bg-gray-200 rounded w-24"></div>
-          <div className="h-10 bg-gray-200 rounded w-28"></div>
+    <div className="relative w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Animated background overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 animate-pulse"></div>
+      
+      {/* Loading skeleton */}
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
+          <div className="animate-spin rounded-full h-12 w-12 border-2 border-white/30 border-t-white mx-auto mb-4"></div>
+          <p className="text-white text-lg font-medium">Initializing AI Avatar...</p>
         </div>
-        <div className="h-10 bg-gray-200 rounded"></div>
+      </div>
+      
+      {/* Loading particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400/30 rounded-full animate-bounce" style={{ animationDelay: '0s', animationDuration: '3s' }}></div>
+        <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-purple-400/30 rounded-full animate-bounce" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
+        <div className="absolute top-1/2 left-3/4 w-3 h-3 bg-pink-400/20 rounded-full animate-bounce" style={{ animationDelay: '2s', animationDuration: '5s' }}></div>
       </div>
     </div>
   )
@@ -25,15 +32,10 @@ const Akool = dynamic(() => import('@/components/Akool'), {
 
 export default function AvatarPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
-
-        
-        <AgoraProvider>
-          <Akool />
-        </AgoraProvider>
-        
-      </div>
+    <div className="relative w-full h-screen overflow-hidden">
+      <AgoraProvider>
+        <Akool />
+      </AgoraProvider>
     </div>
   );
 }
